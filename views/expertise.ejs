@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Finder</title>
+    <link rel="stylesheet" href="../public/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-green-300">
+
+    <nav class="bg-blue-700 flex justify-between items-center max-h-16">
+        <img src="../public/logo.webp" alt="" class="w-12 h-12 mx-7 rounded-full">
+        <ul class="flex text-cyan-100 justify-end font-bold pr-20">
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/" class="">Home</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/about" class="">About</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/contact" class="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="flex flex-col justify-around items-center h-fit bg-yellow-300 pb-20 ">
+        <section class="flex flex-col justify-evenly  items-center w-98 h-72 bg">
+            <h1 class="text-4xl font-bold mb--2">Add Skill/Expertise</h1>
+            <form id="new-skill-form" class="font-bold text-l">
+
+                <select class="w-95" id="new-skill-input">
+                    <option id="" value="">Select your Skill/Expertise</option>
+                    <option id="dsa" value="dsa">Data Structures and Algorithm</option>
+                    <option id="fwd" value="fwd">Full stack Web Development</option>
+                    <option id="frwd" value="frwd">Front End Web Development</option>
+                    <option id="bwd" value="bwd">Back End Web Development</option>
+                    <option id="rj" value="rj">React Js</option>
+                    <option id="nj" value="nj">Node Js</option>
+                    <option id="ad" value="ad">Android Development</option>
+                    <option id="otr" value="otr">Other</option>
+                </select>
+                <button
+                    class="border-black border-2 place-content-center bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer w-20 h-auto ml-4"
+                    type="submit" id="new-skill-submit" value="Add skill">Add Skill</button>
+            </form>
+            <h2 class="text-3xl font-bold mb-5">Your Skills:</h2>
+        </section>
+        <main>
+            <section class="task-list flex flex-col justify-evenly  items-center w-98 h-auto">
+
+                <form action="/submitSkills"
+                    class="skills flex flex-col justify-between items-center space-y-8" method="post">
+                    <h1 class="text-4xl font-bold mb-5" id = "renderSkillsBeforeThis">Add Project/Profile links</h1>
+                    <input type="text" name="project1" id=""
+                        class="text-sm font-bold w-98 m-2 border-2 border-black rounded-3xl p-2"
+                        placeholder="Enter your 1st Project/Profile link">
+                    <input type="text" name="project2" id=""
+                        class="text-sm font-bold w-98 m-2 border-2 border-black rounded-3xl p-2"
+                        placeholder="Enter your 2nd Project/Profile link">
+                    <input type="text" name="project3" id=""
+                        class="text-sm font-bold w-98 m-2 border-2 border-black rounded-3xl p-2"
+                        placeholder="Enter your 3rd Project/Profile link">
+                    <button
+                        class="bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer border-black border-2 w-32 h-auto"
+                        type="submitalls" id="submitalls">Submit Skills</button>
+                </form>
+            </section>
+        </main>
+    </section>
+    <section class="flex flex-col items-center mt-16 mb-16">
+        <section class="flex flex-col  items-center w-98 h-auto ">
+            <!-- <form action="/submitProjects" method="post" id="new-project-form"
+                class="skills flex flex-col justify-between items-center space-y-8">
+
+
+                <button
+                    class="bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer border-black border-2 w-32 h-auto"
+                    type="submitalls" id="submitalls">Submit Links</button> -->
+            </form>
+        </section>
+    </section>
+</body>
+<script>
+
+
+
+    var strskill = [];
+
+        var allskills = <%-JSON.stringify(allskills)%>;
+
+
+
+
+        for (var prop in allskills) {
+        if(allskills[prop]!==undefined){
+        //console.log(prop+" "+ allskills[prop]);
+        const form = document.querySelector("#new-skill-form");
+
+
+        const input = document.querySelector("#new-skill-input");
+        const list_el = document.querySelector("#skills");
+
+
+        const skill = prop;
+        const val = allskills[prop];
+        strskill.push(skill);
+        //console.log(skill + val);
+        const task_el = document.createElement('div');
+        task_el.classList.add(skill, "task", "flex", "flex-row", "justify-around", "items-center");
+
+        const task_content_el = document.createElement('div');
+        task_content_el.classList.add('content');
+        const bul = document.createElement('span')
+        bul.classList.add("text-3xl");
+        bul.innerHTML = "&bull;";
+
+        task_el.appendChild(bul);
+        //console.log(bul.innerHTML);
+        task_el.appendChild(task_content_el);
+
+        const task_input_el = document.createElement('input');
+
+        task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
+
+        task_input_el.type = 'text';
+        task_input_el.value = val;
+        task_input_el.name = skill;
+        task_input_el.setAttribute('readonly', 'readonly');
+
+        task_content_el.appendChild(task_input_el);
+
+
+
+
+        const task_delete_el = document.createElement('span');
+        var d = "delete";
+        task_delete_el.classList.add(d, "items-center", "border-2", "border-black", "bg-red-500", "hover:bg-red-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        task_delete_el.setAttribute("onlick", "dlt()")
+        task_delete_el.innerText = 'Delete';
+
+
+
+        const btall = document.querySelector("#renderSkillsBeforeThis");
+        task_el.appendChild(task_delete_el);
+
+        btall.parentNode.insertBefore(task_el, btall);
+
+        input.value = '';
+        }
+        };
+
+        const form = document.querySelector("#new-skill-form");
+        form.addEventListener('submit', (e) => {
+   
+            const input = document.querySelector("#new-skill-input");
+            const list_el = document.querySelector("#skills");
+           // e.preventDefault();
+
+            const skill = input.value;
+            var b=0;
+            for(var k=0;k<strskill.length;k++){
+                if(strskill[k]==skill){
+                    b=1;
+                }
+            }
+            if(b==0){
+
+
+            const task_el = document.createElement('div');
+            task_el.classList.add(skill, "task", "flex", "flex-row", "justify-around", "items-center");
+
+            const task_content_el = document.createElement('div');
+            task_content_el.classList.add('content');
+            const bul = document.createElement('span')
+            bul.classList.add("text-3xl");
+            bul.innerHTML = "&bull;";
+
+            task_el.appendChild(bul);
+            //console.log(bul.innerHTML);
+            task_el.appendChild(task_content_el);
+
+            const task_input_el = document.createElement('input');
+
+            task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
+
+            task_input_el.type = 'text';
+            task_input_el.value = document.getElementById(skill).innerHTML;
+            task_input_el.name = skill;
+            task_input_el.setAttribute('readonly', 'readonly');
+
+            task_content_el.appendChild(task_input_el);
+
+            strskill.push(skill);
+
+
+            const task_delete_el = document.createElement('span');
+            var d = "delete";
+            task_delete_el.classList.add(d, "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-red-500", "hover:bg-red-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+            task_delete_el.setAttribute("onlick", "dlt()")
+            task_delete_el.innerText = 'Delete';
+
+
+
+            const btall = document.querySelector("#renderSkillsBeforeThis");
+            task_el.appendChild(task_delete_el);
+
+            btall.parentNode.insertBefore(task_el, btall);
+
+            input.value = '';
+
+
+            //console.log(task_delete_el);
+
+            var dlt = document.querySelectorAll(".delete");
+            for (var i = 0; i < dlt.length; i++) {
+
+                //console.log(dlt[i]);
+                dlt[i].onclick = function () {
+                    this.parentElement.style.display = "none";
+                    //console.log(strskill);
+                    strskill.splice(strskill.length - i, 1);
+                    //console.log(strskill);
+
+                };
+            };
+        }
+
+        });
+
+
+    var dlt = document.querySelectorAll(".delete");
+    for (var i = 0; i < dlt.length; i++) {
+
+        //console.log(dlt[i]);
+        dlt[i].onclick = function () {
+            this.parentElement.style.display = "none";
+            strskill.splice(i, 1);
+        };
+    };
+
+</script>
+
+</html>

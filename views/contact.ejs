@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Finder</title>
+    <link rel="stylesheet" href="../public/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+
+<body>
+
+    <nav class="bg-blue-700 flex justify-between items-center max-h-16">
+        <img src="../public/logo.webp" alt="" class="w-12 h-12 mx-7 rounded-full">
+        <ul class="flex text-cyan-100 justify-end font-bold pr-20">
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/" class="">Home</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/about" class="">About</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/contact" class="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="bg-green-300 flex pt-14 justify-around text-center items-center h-fit">
+        <div class="w-96 ">
+            <h1 class="text-3xl font-bold mb-7 ">Contact Us</h1>
+            <form action="/contact" method="post" class="flex flex-col items-center">
+                <input type="name" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="name"
+                    placeholder="Enter your Name">
+                <input type="email" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="email"
+                    placeholder="Enter your Email">
+                <input type="phone" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="phone"
+                    placeholder="Enter your Phone no.">
+                <textarea name="address" class="m-2 border-2 border-black rounded-3xl p-2 w-96" id="" cols="30"
+                    rows="10" placeholder="Enter query/feedback"></textarea>
+                <button class="btn border-0 w-24 h-9 rounded-3xl bg-blue-700 text-white hover:bg-red-500"
+                    >
+                    Submit
+                </button>
+
+            </form>
+
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Finder</title>
+    <link rel="stylesheet" href="../public/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-green-300">
+
+    <nav class="bg-blue-700 flex justify-between items-center max-h-16">
+        <img src="../public/logo.webp" alt="" class="w-12 h-12 mx-7 rounded-full">
+        <ul class="flex text-cyan-100 justify-end font-bold pr-20">
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/" class="">Home</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/about" class="">About</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/contact" class="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="mainsect flex flex-col justify-around items-center h-fit bg-yellow-300 pb-20 ">
+        <!-- <h1 class="text-4xl font-bold mb--2"></h1> -->
+        <section class="sects flex flex-col justify-evenly  items-center w-98 h-72 bg">
+            <h1 class="text-3xl font-bold">Add Skill/Expertise</h1>
+            <form id="new-skill-form" class="font-bold text-l mt--2">
+
+                <select class="w-95" id="new-skill-input">
+                    <option id="" value="">Select your Skill/Expertise</option>
+                    <option id="dsa" value="datastructuresandalgorithm">Data Structures and Algorithm</option>
+                    <option id="fwd" value="fullstackwebdevelopment">Full stack Web Development</option>
+                    <option id="frwd" value="frontendwebdevelopment">Front End Web Development</option>
+                    <option id="bwd" value="backendwebdevelopment">Back End Web Development</option>
+                    <option id="rjs" value="reactjs">React Js</option>
+                    <option id="njs" value="nodejs">Node Js</option>
+                    <option id="ad" value="androiddevelopment">Android Development</option>
+                    <option id="other" value="other">Other</option>
+                </select>
+                <button
+                    class="border-black border-2 place-content-center bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer w-20 h-auto ml-4"
+                    type="submit" id="new-skill-submit" value="Add skill">Add Skill</button>
+            </form>
+        </section>
+        <main>
+            <section class="task-list flex flex-col justify-evenly  items-center w-98 h-auto">
+                <h2 class="text-3xl font-bold mb-5">Your Skills:</h2>
+
+                <form action="/dashboard" id="skills"
+                    class="skills flex flex-col justify-between items-center space-y-8" method="post">
+                    <h1 class="text-3xl font-bold beforeProj">Your Project/Profile links</h1>
+                    <input type="text" name="project1" id="p1"
+                        class="text-sm font-bold w-98 m-2 border-2 border-black rounded-3xl p-2 "
+                        placeholder="Enter your Project/Profile link">
+                    <input type="text" name="project2" id="p2"
+                        class="text-sm font-bold w-98 m-2 border-2 border-black rounded-3xl p-2"
+                        placeholder="Enter your Project/Profile link">
+                    <input type="text" name="project3" id="p3"
+                        class="text-sm font-bold w-98 m-2 border-2 border-black rounded-3xl p-2"
+                        placeholder="Enter your Project/Profile link">
+                    <button
+                        class="beforeSub bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer border-black border-2 w-32 h-auto"
+                        type="submitalls" id="submitalls">Submit Skills</button>
+                </form>
+            </section>
+        </main>
+    </section>
+</body>
+<script>
+const skillMap = new Map([
+  ["fullstackwebdevelopment", "Full Stack Web Development"],
+  ["reactjs", "React Js"],
+  ["backendwebdevelopment", "Backend Web Development"],
+  ["frontendwebdevelopment", "Frontend Web Development"],
+  ["nodejs", "Node JS"],
+  ["datastructuresandalgorithm", "Data Structures & Algorithms"],
+  ["androiddevelopment", "Android Development"],
+  ["other", "Miscellaneous"]
+]);
+const skill2Map = new Map([
+  ["fullstackwebdevelopment", "fwd"],
+  ["reactjs", "rjs"],
+  ["backendwebdevelopment", "bwd"],
+  ["frontendwebdevelopment", "frwd"],
+  ["nodejs", "njs"],
+  ["datastructuresandalgorithm", "dsa"],
+  ["androiddevelopment", "ad"],
+  ["other", "other"]
+]);
+    var params = <%-JSON.stringify(params)%>
+    var strskill = params[0].skills;
+    console.log("asdf" + strskill);
+    const head = document.querySelector('.mainsect'); 
+    const hhead = document.createElement('h1');
+    hhead.classList.add("text-5xl", "font-bold", "mt-10")
+    hhead.innerHTML = "Welcome <%-params[0].name%>!";
+    const inserthead = document.querySelector(".sects");
+    inserthead.parentNode.insertBefore(hhead, inserthead);
+    for (var i = 0; i < params[0].skills.length; i++) {
+        const form = document.querySelector("#new-skill-form");
+        const input = document.querySelector("#new-skill-input");
+        const list_el = document.querySelector("#skills");
+        const skill = skillMap.get(params[0].skills[i]);
+        const task_el = document.createElement('div');
+        task_el.classList.add("task", "flex", "flex-row", "justify-around", "items-center");
+        const task_content_el = document.createElement('div');
+        task_content_el.classList.add('content');
+        const bul = document.createElement('span')
+        bul.classList.add("text-3xl");
+        bul.innerHTML = "&bull;";
+        task_el.appendChild(bul);
+        task_el.appendChild(task_content_el);
+        const task_input_el = document.createElement('input');
+        task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
+        task_input_el.type = 'text';
+        task_input_el.value = skill;
+        task_input_el.name = skill;
+        task_input_el.setAttribute('readonly', 'readonly');
+        task_content_el.appendChild(task_input_el);
+        const task_delete_el = document.createElement('span');
+        var d = "delete";
+        task_delete_el.classList.add(d, "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-red-500", "hover:bg-red-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        task_delete_el.setAttribute("onlick", "dlt()")
+        task_delete_el.innerText = 'Delete';
+        const bpj = document.querySelector(".beforeProj");
+        task_el.appendChild(task_delete_el);
+        bpj.parentNode.insertBefore(task_el, bpj);
+    }
+    document.getElementById('p1').style.display = 'none';
+    document.getElementById('p2').style.display = 'none';
+    document.getElementById('p3').style.display = 'none';
+    var plink1 = params[0].project1;
+    var np = 0;
+    var a = 0, b = 0, b = 0;
+    if (plink1 !== undefined) {
+        np++;
+        a = 1;
+        document.getElementById('p1').setAttribute("value", plink1);
+        var divp = document.createElement('div');
+        var link = document.createElement('a');
+        link.classList.add("font-bold", "text-xl", "text-blue-900", "hover:text-blue-600")
+        link.innerHTML = "&bull;" + " " + "Link" + np;
+        link.setAttribute("href", plink1);
+        const bsub = document.querySelector(".beforeSub");
+        var dlt = document.createElement('span');
+        var d = "dltProj";
+        dlt.classList.add(d, "dp1", "ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        dlt.setAttribute("onlick", "dltp1()")
+        dlt.innerText = 'Edit';
+        divp.appendChild(link);
+        divp.appendChild(dlt);
+        bsub.parentNode.insertBefore(divp, bsub);
+    }
+    var plink2 = params[0].project2;
+    if (plink2 !== undefined) {
+        np++;
+        b = 1;
+        document.getElementById('p2').setAttribute("value", plink2);
+        var divp = document.createElement('div');
+        var link = document.createElement('a');
+        link.classList.add("font-bold", "text-xl", "text-blue-900", "hover:text-blue-600")
+        link.innerHTML = "&bull;" + " " + "Link" + np;
+        link.setAttribute("href", plink2);
+        const bsub = document.querySelector(".beforeSub");
+        var dlt = document.createElement('span');
+        var d = "dltProj";
+        dlt.classList.add(d, "dp2", "ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        dlt.setAttribute("onlick", "dltp2()")
+        dlt.innerText = 'Edit';
+        divp.appendChild(link);
+        divp.appendChild(dlt);
+        bsub.parentNode.insertBefore(divp, bsub);
+    }
+    var plink3 = params[0].project3;
+    if (plink3 !== undefined) {
+        np++;
+        c = 1;
+        document.getElementById('p3').setAttribute("value", plink3);
+        var divp = document.createElement('div');
+        var link = document.createElement('a');
+        link.classList.add("font-bold", "text-xl", "text-blue-900", "hover:text-blue-600")
+        link.innerHTML = "&bull;" + " " + "Link" + np;
+        link.setAttribute("href", plink3);
+        const bsub = document.querySelector(".beforeSub");
+        var dlt = document.createElement('span');
+        var d = "dltProj";
+        dlt.classList.add(d, "dp3", "ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        dlt.setAttribute("onlick", "dltp3()")
+        dlt.innerText = 'Edit';
+        divp.appendChild(link);
+        divp.appendChild(dlt);
+        bsub.parentNode.insertBefore(divp, bsub);
+    }
+    var t = np;
+    np = 3 - np;
+    if (a == 0) {
+        document.querySelector("#p1").style.display = 'block';
+    }
+    if (b == 0) {
+        document.querySelector("#p2").style.display = 'block';
+    }
+    if (c == 0) {
+        document.querySelector("#p3").style.display = 'block';
+    }
+    var dp1 = document.querySelector(".dp1");
+    dp1.addEventListener('click', (e) => {
+        document.querySelector('#p1').style.display = 'block';
+        dp1.parentNode.style.display = 'none';
+    });
+    var dp2 = document.querySelector(".dp2");
+    dp2.addEventListener('click', (e) => {
+        document.querySelector('#p2').style.display = 'block';
+        dp2.parentNode.style.display = 'none';
+    });
+    var dp3 = document.querySelector(".dp3");
+    dp3.addEventListener('click', (e) => {
+        document.querySelector('#p3').style.display = 'block';
+        dp3.parentNode.style.display = 'none';
+    });
+    const form = document.querySelector("#new-skill-form");
+    form.addEventListener('submit', (e) => {
+        const input = document.querySelector("#new-skill-input");
+        const list_el = document.querySelector("#skills");
+        e.preventDefault();
+        
+        const cskill = input.value;
+        const skill = skill2Map.get(cskill);
+        console.log(cskill);
+        var b = 0;
+        for (var k = 0; k < strskill.length; k++) {
+        console.log(strskill[k]);
+            if (strskill[k] == cskill) {
+              console.log("I was true");
+                b = 1;
+            }
+        }
+        if (b == 0) {
+            const task_el = document.createElement('div');
+            task_el.classList.add(skill, "task", "flex", "flex-row", "justify-around", "items-center");
+            const task_content_el = document.createElement('div');
+            task_content_el.classList.add('content');
+            const bul = document.createElement('span')
+            bul.classList.add("text-3xl");
+            bul.innerHTML = "&bull;";
+            task_el.appendChild(bul);
+            task_el.appendChild(task_content_el);
+            const task_input_el = document.createElement('input');
+            task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
+            task_input_el.type = 'text';
+            task_input_el.value = document.getElementById(skill).innerHTML;
+            task_input_el.name = document.getElementById(skill).innerHTML;
+            task_input_el.setAttribute('readonly', 'readonly');
+            task_content_el.appendChild(task_input_el);
+            strskill.push(cskill);
+            const task_delete_el = document.createElement('span');
+            var d = "delete";
+            task_delete_el.classList.add(d, "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-red-500", "hover:bg-red-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+            task_delete_el.setAttribute("onlick", "dlt()")
+            task_delete_el.innerText = 'Delete';
+            const bpj = document.querySelector(".beforeProj");
+            task_el.appendChild(task_delete_el);
+            bpj.parentNode.insertBefore(task_el, bpj);
+            input.value = '';
+            var dlt = document.querySelectorAll(".delete");
+            for (var i = 0; i < dlt.length; i++) {
+                dlt[i].onclick = function () {
+                    var divi=this.parentElement;
+                    divi.remove();
+                    strskill.splice(strskill.length - i, 1);
+                };
+            };
+        }
+    });
+    var dlt = document.querySelectorAll(".delete");
+    for (var i = 0; i < dlt.length; i++) {
+        dlt[i].onclick = function () {
+            var divi=this.parentElement;
+            divi.remove();
+            strskill.splice(i, 1);
+        };
+    };
+
+</script>
+
+</html>

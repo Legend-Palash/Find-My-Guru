@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Finder</title>
+    <link rel="stylesheet" href="../public/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-300">
+    <nav class="bg-blue-700 flex justify-between items-center max-h-16">
+        <img src="../public/logo.webp" alt="" class="w-12 h-12 mx-7 rounded-full">
+        <ul class="flex text-cyan-100 justify-end font-bold pr-20">
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/" class="">Home</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/about" class="">About</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/contact" class="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="flex flex-col items-center w-auto h-auto mt-14">
+        <h1 class="text-4xl font-bold mb-10">Select the required skill</h1>
+        <form action="/search" method="post" class="skills flex flex-col justify-between items-center space-y-8 font-bold text-xl" >
+            <select name="skill" class="w-98" id="new-skill-input">
+                <option id="" value="">Select required skill</option>
+                <option id="dsa" value="datastructuresandalgorithm">Data Structures and Algorithm</option>
+                <option id="fwd" value="fullstackwebdevelopment">Full stack Web Development</option>
+                <option id="frwd" value="frontendwebdevelopment">Front End Web Development</option>
+                <option id="bwd" value="backendwebdevelopment">Back End Web Development</option>
+                <option id="rj" value="reactjs">React Js</option>
+                <option id="nj" value="nodejs">Node Js</option>
+                <option id="ad" value="androiddevelopment">Android Development</option>
+                <option id="otr" value="other">Other</option>
+            </select>
+                <button class="bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer border-black border-2 w-32 h-auto"
+                    type="submit" id="search">Search</button>
+        </form>
+    </section>
+</body>
+</html>

@@ -1,0 +1,28 @@
+#section1 {
+    height: 92vh;
+}
+.h-97{
+    height: 92vh;
+}
+
+.w-98{
+    width: 35rem;
+}
+.w-95{
+    width: 25rem;
+}
+.mb--2{
+    margin-bottom: -2rem;
+}
+*:focus {
+    outline: none;
+}
+.h-98{
+    height: 15rem;
+}
+.text-myl{
+    font-size: x-large;
+}
+.h-inherit{
+    height: inherit;
+}

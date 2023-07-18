@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Finder</title>
+    <link rel="stylesheet" href="../public/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-green-300">
+    <nav class="bg-blue-700 flex justify-between items-center max-h-16">
+        <img src="../public/logo.webp" alt="" class="w-12 h-12 mx-7 rounded-full">
+        <ul class="flex text-cyan-100 justify-end font-bold pr-20">
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/index" class="">Home</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/about" class="">About</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/contact" class="">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="main flex flex-col items-center w-auto h-auto mt-14 space-y-6">
+        <h1 class="text-4xl font-bold mb-5">These are Mentors with your required skill:</h1>
+        <!-- <section class="mentor flex flex-row items-center w-8/12 h-98 bg-blue-400 border-2 border-black">
+            <div class=" w-3/12 h-inherit border-r-2 border-black border">
+                <img src="../public/mentor.webp" alt="" class=" w-full h-full">
+            </div>
+            <div class="flex flex-col w-9/12 h-full ml-8">
+                <div class="h-2/6">
+                    <h2 class="font-bold text-l ">
+                        Name: <span> Palash</span>
+                    </h2>
+                    <h2 class="font-bold text-l ">
+                        Email-Id: <span>palash9914</span>
+                    </h2>
+                </div>
+                <div class="h-2/6">
+                    <p class=""> <span>Skills:</span> skll1 skill2 skill3 skill skill </p>
+                </div>
+                <div class="h-2/6">
+
+                    <p>Projects: <span>Project1</span></p>
+                    <p>           Project2</p>
+                    <p>           Project3</p>
+                    </p>
+                </div>
+            </div>
+        </section> -->
+    </section>
+    <script>
+    const skillMap = new Map([
+      ["fullstackwebdevelopment", "Full Stack Web Development"],
+      ["reactjs", "React Js"],
+      ["backendwebdevelopment", "Backend Web Development"],
+      ["frontendwebdevelopment", "Frontend Web Development"],
+      ["nodejs", "Node JS"],
+      ["datastructuresandalgorithm", "Data Structures & Algorithms"],
+      ["androiddevelopment", "Android Development"],
+      ["other", "Miscellaneous"]
+    ]);
+        var mentors= <%-JSON.stringify(mentors)%>
+        console.log(mentors.m1);
+        const sectmain=document.querySelector(".main");
+        var f=0;
+        for(var obj in mentors){
+            const sect=document.createElement('section');
+           var clr="";
+           if(f==0){
+            clr="bg-red-400";
+            f++;
+           }
+           else if(f==1){
+            clr="bg-yellow-400";
+            f++;
+           }
+           else{
+            f=0;
+            clr="bg-blue-400";
+           }
+            sect.classList.add("mentor" ,"flex" ,"flex-row" ,"items-center" ,"w-8/12" ,"h-98" ,"border-2" ,"border-black" , clr);
+            // const m=document.createElement('p');
+            // m.innerHTML=mentors[obj].name;
+            //sect.appendChild(m);
+            const div1=document.createElement('div');
+            div1.classList.add("w-3/12", "h-inherit" ,"border-r-2" ,"border-black");
+            const img=document.createElement('img');
+            img.setAttribute("src" , "../public/mentor.webp");
+            img.setAttribute("alt", "");
+            img.classList.add("w-full" ,"h-full")
+            div1.appendChild(img);
+            sect.appendChild(div1);
+            const main=document.createElement('div');
+            main.classList.add("flex" ,"flex-col" ,"w-9/12" ,"h-full" ,"ml-8");
+            const dm1=document.createElement('div');
+            dm1.classList.add("h-2/6");
+            const name=document.createElement('h2');
+            name.classList.add("font-bold", "text-myl");
+            name.innerHTML = "Name: "+ mentors[obj].name;
+            const email=document.createElement('h2');
+            email.classList.add("font-bold", "text-l");
+            email.innerHTML = "Email-Id: "+ mentors[obj].email;
+            dm1.appendChild(name);
+            dm1.appendChild(email);
+            const dm2=document.createElement('div');
+            dm2.classList.add("h-2/6");
+            const pd2=document.createElement('p');
+            pd2.classList.add("font-bold");
+
+            var skills=mentors[obj].skills;
+            // console.log(skills);
+            
+            var temp="&bull;";
+            var dispskill="&bull;" + (skillMap.get(skills[0]));
+            for(var i=1;i<skills.length;i++){
+                // console.log(skills[i]);
+                //console.log(skillMap.get(skills[i]));
+                dispskill=dispskill+"&nbsp;&nbsp;&nbsp;&nbsp;"+"&bull;"+(skillMap.get(skills[i]));
+            }
+            // dispskill+= " " + temp;
+            // console.log(dispskill);
+            pd2.innerHTML="Skills: " + dispskill;
+            dm2.appendChild(pd2);
+            const dm3=document.createElement('div');
+            dm3.classList.add("h-2/6");
+            const p1=document.createElement('p');
+            p1.classList.add("font-bold");
+            var pstr="Projects&nbsp;&nbsp;" +"&bull;"+ mentors[obj].project1;
+            if(mentors[obj].project1==""){
+                pstr+="(Empty)";
+            }
+            p1.innerHTML=pstr;
+            const p2=document.createElement('p');
+            p2.classList.add("font-bold");
+            var pstr="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +"&bull;"+ mentors[obj].project2;
+            if(mentors[obj].project2==""){
+                pstr+="(Empty)";
+            }
+            p2.innerHTML=pstr;
+            const p3=document.createElement('p');
+            p3.classList.add("font-bold");
+            var pstr="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +"&bull;"+ mentors[obj].project3;
+            if(mentors[obj].project3==""){
+                pstr+="(Empty)";
+            }
+            p3.innerHTML=pstr;
+            dm3.appendChild(p1);
+            dm3.appendChild(p2);
+            dm3.appendChild(p3);
+            main.appendChild(dm1);
+            main.appendChild(dm2);
+            main.appendChild(dm3);
+            sect.appendChild(main);
+            sectmain.appendChild(sect);
+        }
+    </script>
+</body>
+
+</html>
